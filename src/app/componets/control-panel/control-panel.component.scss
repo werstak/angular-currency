@@ -1,16 +1,14 @@
 .control-panel {
-  margin: 0 0 25px;
+  margin: 0 0 20px;
+  &__title {
+    text-align: center;
+  }
 }
 
 .control-elements {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0 0;
-
-  &__select {
-
-  }
 }
 
 .example-container .mat-form-field + .mat-form-field {

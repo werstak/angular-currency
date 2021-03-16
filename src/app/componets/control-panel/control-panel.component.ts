@@ -38,17 +38,13 @@ interface Car {
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  constructor(fb: FormBuilder) {
-    this.options = fb.group({
-      color: this.colorControl,
-      fontSize: this.fontSizeControl,
-    });
-  }
+  value = 'Clear me';
   selectedValue: string;
   selectedCar: string;
-  options: FormGroup;
-  colorControl = new FormControl('primary');
-  fontSizeControl = new FormControl();
+  selectGroup: FormGroup;
+  amountControl = new FormControl('');
+  inputCurrencyControl = new FormControl('primary');
+  outputCurrencyControl = new FormControl('primary');
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
@@ -61,6 +57,17 @@ export class ControlPanelComponent implements OnInit {
     {value: 'saab', viewValue: 'Saab'},
     {value: 'mercedes', viewValue: 'Mercedes'}
   ];
+
+  constructor() {
+  }
+
+/*  constructor(fb: FormBuilder) {
+    this.selectGroup = fb.group({
+      fontSize: this.amountControl,
+      color: this.inputCurrencyControl,
+      color2: this.colorControl,
+    });
+  }*/
 
   ngOnInit(): void {
 

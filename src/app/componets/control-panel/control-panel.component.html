@@ -1,18 +1,22 @@
 <div class="control-panel">
   <mat-card>
-    <div class="control-elements">
+    <h1 class="control-panel__title" >Currency Converter</h1>
 
-      <form class="example-container" [formGroup]="options">
+    <div class="control-elements">
+      <form class="example-container" [formGroup]="selectGroup">
 
         <mat-form-field appearance="outline">
           <mat-label>Amount</mat-label>
-          <input matInput type="text" placeholder="100$" [formControl]="fontSizeControl">
-          <mat-error *ngIf="fontSizeControl.invalid">Please enter a valid amount</mat-error>
+          <input matInput type="text" placeholder="100$" [formControl]="amountControl" >
+ <!--         <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>-->
+          <mat-error *ngIf="amountControl.invalid">Please enter a valid amount</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>From</mat-label>
-          <mat-select [formControl]="colorControl">
+          <mat-select [formControl]="inputCurrencyControl">
             <mat-option *ngFor="let food of foods" [value]="food.value">
               {{food.viewValue}}
             </mat-option>
@@ -21,7 +25,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Too</mat-label>
-          <mat-select [formControl]="colorControl">
+          <mat-select [formControl]="outputCurrencyControl">
             <mat-option *ngFor="let food of foods" [value]="food.value">
               {{food.viewValue}}
             </mat-option>
@@ -29,7 +33,6 @@
         </mat-form-field>
 
       </form>
-
     </div>
   </mat-card>
 </div>
