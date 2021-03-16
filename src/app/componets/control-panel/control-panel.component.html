@@ -1,1 +1,36 @@
-<p>control-panel works!</p>
+<div class="control-panel">
+  <mat-card>
+    <div class="control-elements">
+
+      <form class="example-container" [formGroup]="options">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input matInput type="text" placeholder="100$" [formControl]="fontSizeControl">
+          <mat-error *ngIf="fontSizeControl.invalid">Please enter a valid amount</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>From</mat-label>
+          <mat-select [formControl]="colorControl">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Too</mat-label>
+          <mat-select [formControl]="colorControl">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+
+    </div>
+  </mat-card>
+</div>
+

@@ -8,6 +8,7 @@ import { MaterialModule } from './material.module';
 import { HeaderComponent } from './componets/header/header.component';
 import { ControlPanelComponent } from './componets/control-panel/control-panel.component';
 import { DisplayCurrenciesComponent } from './componets/display-currencies/display-currencies.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { DisplayCurrenciesComponent } from './componets/display-currencies/displ
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
     MaterialModule
   ],
   providers: [],
