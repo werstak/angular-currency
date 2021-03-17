@@ -20,10 +20,12 @@ interface CurrenciesOutput {
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  dataForm: FormGroup;
-  amountControl = new FormControl('', [Validators.required]);
-  inputCurrencyControl = new FormControl('EUR');
-  outputCurrencyControl = new FormControl('USD');
+  dataForm = new FormGroup ({
+    amountControl: new FormControl('', [Validators.required]),
+    inputCurrencyControl: new FormControl('EUR'),
+    outputCurrencyControl: new FormControl('USD')
+  });
+
 
   currenciesDefault: CurrenciesDefault[] = [
     {value: 'USD', viewValue: 'USD'},
@@ -43,16 +45,7 @@ export class ControlPanelComponent implements OnInit {
     {value: 'TRY', viewValue: 'TRY'}
   ];
 
-  /*  constructor() {
-    }*/
-
-  constructor(fb: FormBuilder) {
-    this.dataForm = fb.group({
-      amountCurrency: this.amountControl,
-      inputCurrency: this.inputCurrencyControl,
-      outputCurrency: this.outputCurrencyControl,
-    });
-  }
+    constructor() {}
 
   convertSubmit(): void {
     console.log(this.dataForm.value);
