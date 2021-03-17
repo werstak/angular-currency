@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -9,13 +10,30 @@ import { CurrencyService } from '../../services/currency.service';
 })
 export class DisplayCurrenciesComponent implements OnInit {
   displayedColumns = ['date', 'aud', 'bgn', 'brl', 'cad', 'chf', 'cny', 'czk', 'dkk'];
-
   dataSource = ELEMENT_DATA;
+
+  campaignOne: FormGroup;
+  campaignTwo: FormGroup;
+
 
   constructor(
     public currencyService: CurrencyService,
   ) {
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+    this.campaignOne = new FormGroup({
+      start: new FormControl(new Date(year, month, 13)),
+      end: new FormControl(new Date(year, month, 16))
+    });
+
+    this.campaignTwo = new FormGroup({
+      start: new FormControl(new Date(year, month, 15)),
+      end: new FormControl(new Date(year, month, 19))
+    });
   }
+
 
   ngOnInit(): void {
     this.currencyService.getCurrency().subscribe(data => {
@@ -37,23 +55,22 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
-  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  {date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
 ];
-
 
 
 /*{value: 'AUD', viewValue: 'AUD'},
