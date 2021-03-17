@@ -1,25 +1,90 @@
 <div class="example-container mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
+<!--    'aud', 'bgn', 'brl', 'cad', 'chf', 'cny', 'czk', 'dkk'-->
+
     <!-- Position Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="aud">
+      <th mat-header-cell *matHeaderCellDef> AUD </th>
+      <td mat-cell *matCellDef="let element"> {{element.aud}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="bgn">
+      <th mat-header-cell *matHeaderCellDef> BGN </th>
+      <td mat-cell *matCellDef="let element"> {{element.bgn}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="brl">
+      <th mat-header-cell *matHeaderCellDef> BRL </th>
+      <td mat-cell *matCellDef="let element"> {{element.brl}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="cad">
+      <th mat-header-cell *matHeaderCellDef> CAD </th>
+      <td mat-cell *matCellDef="let element"> {{element.cad}} </td>
+    </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="chf">
+      <th mat-header-cell *matHeaderCellDef> CHF </th>
+      <td mat-cell *matCellDef="let element"> {{element.chf}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="cny">
+      <th mat-header-cell *matHeaderCellDef> CNY </th>
+      <td mat-cell *matCellDef="let element"> {{element.cny}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="czk">
+      <th mat-header-cell *matHeaderCellDef> CZK </th>
+      <td mat-cell *matCellDef="let element"> {{element.czk}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="dkk">
+      <th mat-header-cell *matHeaderCellDef> DKK </th>
+      <td mat-cell *matCellDef="let element"> {{element.dkk}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+
+<!--
+<div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    &lt;!&ndash; Position Column &ndash;&gt;
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
 
-    <!-- Name Column -->
+    &lt;!&ndash; Name Column &ndash;&gt;
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
+    &lt;!&ndash; Weight Column &ndash;&gt;
     <ng-container matColumnDef="weight">
       <th mat-header-cell *matHeaderCellDef> Weight </th>
       <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
+    &lt;!&ndash; Symbol Column &ndash;&gt;
     <ng-container matColumnDef="symbol">
       <th mat-header-cell *matHeaderCellDef> Symbol </th>
       <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
@@ -29,3 +94,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+-->

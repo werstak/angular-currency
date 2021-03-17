@@ -1,16 +1,119 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CurrencyService } from '../../services/currency.service';
 
-/**
- * @title Table with sticky header
- */
+
 @Component({
   selector: 'app-display-currencies',
   templateUrl: './display-currencies.component.html',
   styleUrls: ['./display-currencies.component.scss']
 })
-export class DisplayCurrenciesComponent {
+export class DisplayCurrenciesComponent implements OnInit {
+  displayedColumns = ['date', 'aud', 'bgn', 'brl', 'cad', 'chf', 'cny', 'czk', 'dkk'];
+
+  dataSource = ELEMENT_DATA;
+
+  constructor(
+    public currencyService: CurrencyService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.currencyService.getCurrency().subscribe(data => {
+      console.log(data);
+    });
+  }
+}
+
+export interface PeriodicElement {
+  date: string;
+  aud: number;
+  bgn: number;
+  brl: number;
+  cad: number;
+  chf: number;
+  cny: number;
+  czk: number;
+  dkk: number;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+  { date: '10.08.2021', aud: 1, bgn: 2, brl: 3, cad: 4, chf: 5, cny: 6, czk: 7, dkk: 8},
+];
+
+
+
+/*{value: 'AUD', viewValue: 'AUD'},
+{value: 'BGN', viewValue: 'BGN'},
+{value: 'BRL', viewValue: 'BRL'},
+{value: 'CAD', viewValue: 'CAD'},
+{value: 'CHF', viewValue: 'CHF'},
+{value: 'CNY', viewValue: 'CNY'},
+{value: 'CZK', viewValue: 'CZK'},
+{value: 'DKK', viewValue: 'DKK'},
+{value: 'GBP', viewValue: 'GBP'},
+{value: 'HKD', viewValue: 'HKD'},
+{value: 'HRK', viewValue: 'HRK'},
+{value: 'HUF', viewValue: 'HUF'},
+{value: 'IDR', viewValue: 'IDR'},
+{value: 'ILS', viewValue: 'ILS'},
+{value: 'INR', viewValue: 'INR'},
+{value: 'ISK', viewValue: 'ISK'},
+{value: 'JPY', viewValue: 'JPY'},
+{value: 'KRW', viewValue: 'KRW'},
+{value: 'MXN', viewValue: 'MXN'},
+{value: 'MYR', viewValue: 'MYR'},
+{value: 'NOK', viewValue: 'NOK'},
+{value: 'NZD', viewValue: 'NZD'},
+{value: 'PHP', viewValue: 'PHP'},
+{value: 'PLN', viewValue: 'PLN'},
+{value: 'RON', viewValue: 'RON'},
+{value: 'RUB', viewValue: 'RUB'},
+{value: 'SEK', viewValue: 'SEK'},
+{value: 'SGD', viewValue: 'SGD'},
+{value: 'THB', viewValue: 'THB'},
+{value: 'TRY', viewValue: 'TRY'},
+{value: 'USD', viewValue: 'USD'},
+{value: 'ZAR', viewValue: 'ZAR'},*/
+
+
+/*
+import { Component, OnInit } from '@angular/core';
+import { CurrencyService } from '../../currency.service';
+
+
+@Component({
+  selector: 'app-display-currencies',
+  templateUrl: './display-currencies.component.html',
+  styleUrls: ['./display-currencies.component.scss']
+})
+export class DisplayCurrenciesComponent implements OnInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+
+  constructor(
+    public currencyService: CurrencyService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.currencyService.getCurrency().subscribe(data => {
+      console.log(data);
+    });
+  }
 }
 
 export interface PeriodicElement {
@@ -32,3 +135,5 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
+
+*/

@@ -10,7 +10,7 @@ import { ControlPanelComponent } from './componets/control-panel/control-panel.c
 import { DisplayCurrenciesComponent } from './componets/display-currencies/display-currencies.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CurrencyService } from './currency.service';
+import { CurrencyService } from './services/currency.service';
 
 @NgModule({
   declarations: [
