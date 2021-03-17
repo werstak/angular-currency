@@ -14,8 +14,8 @@
         <mat-form-field appearance="outline">
           <mat-label>From</mat-label>
           <mat-select formControlName="inputCurrencyControl">
-            <mat-option *ngFor="let rate of rates" [value]="rate.value">
-              {{rate.viewValue}}
+            <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
+              {{currency}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -23,8 +23,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Too</mat-label>
           <mat-select formControlName="outputCurrencyControl">
-            <mat-option *ngFor="let rate of rates" [value]="rate.value">
-              {{rate.viewValue}}
+            <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
+              {{currency}}
             </mat-option>
           </mat-select>
         </mat-form-field>

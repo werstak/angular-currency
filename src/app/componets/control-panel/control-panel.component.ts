@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CurrencyService } from '../../services/currency.service';
 
-interface Rates {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-control-panel',
@@ -15,41 +11,8 @@ interface Rates {
 export class ControlPanelComponent implements OnInit {
   form: FormGroup;
   showResultConversion = false;
+  allCurrenciesShortNames$ = this.currencyService.allCurrenciesShortNames$;
 
-  rates: Rates[] = [
-    {value: 'AUD', viewValue: 'AUD'},
-    {value: 'BGN', viewValue: 'BGN'},
-    {value: 'BRL', viewValue: 'BRL'},
-    {value: 'CAD', viewValue: 'CAD'},
-    {value: 'CHF', viewValue: 'CHF'},
-    {value: 'CNY', viewValue: 'CNY'},
-    {value: 'CZK', viewValue: 'CZK'},
-    {value: 'DKK', viewValue: 'DKK'},
-    {value: 'GBP', viewValue: 'GBP'},
-    {value: 'HKD', viewValue: 'HKD'},
-    {value: 'HRK', viewValue: 'HRK'},
-    {value: 'HUF', viewValue: 'HUF'},
-    {value: 'IDR', viewValue: 'IDR'},
-    {value: 'ILS', viewValue: 'ILS'},
-    {value: 'INR', viewValue: 'INR'},
-    {value: 'ISK', viewValue: 'ISK'},
-    {value: 'JPY', viewValue: 'JPY'},
-    {value: 'KRW', viewValue: 'KRW'},
-    {value: 'MXN', viewValue: 'MXN'},
-    {value: 'MYR', viewValue: 'MYR'},
-    {value: 'NOK', viewValue: 'NOK'},
-    {value: 'NZD', viewValue: 'NZD'},
-    {value: 'PHP', viewValue: 'PHP'},
-    {value: 'PLN', viewValue: 'PLN'},
-    {value: 'RON', viewValue: 'RON'},
-    {value: 'RUB', viewValue: 'RUB'},
-    {value: 'SEK', viewValue: 'SEK'},
-    {value: 'SGD', viewValue: 'SGD'},
-    {value: 'THB', viewValue: 'THB'},
-    {value: 'TRY', viewValue: 'TRY'},
-    {value: 'USD', viewValue: 'USD'},
-    {value: 'ZAR', viewValue: 'ZAR'},
-  ];
 
   constructor(
     public currencyService: CurrencyService,

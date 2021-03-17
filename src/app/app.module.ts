@@ -11,6 +11,12 @@ import { DisplayCurrenciesComponent } from './componets/display-currencies/displ
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CurrencyService } from './services/currency.service';
+import { reducers, metaReducers } from './store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { CurrencyEffects } from './store/currency/currency.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,12 @@ import { CurrencyService } from './services/currency.service';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    }),
+    EffectsModule.forRoot([CurrencyEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [CurrencyService],
   bootstrap: [AppComponent]

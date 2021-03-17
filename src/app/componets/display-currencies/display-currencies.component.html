@@ -4,8 +4,8 @@
     <mat-date-range-input
       [formGroup]="campaignOne"
       [rangePicker]="campaignOnePicker"
-      [comparisonStart]="campaignTwo.value.start"
-      [comparisonEnd]="campaignTwo.value.end">
+      [comparisonStart]="campaignOne.value.start"
+      [comparisonEnd]="campaignOne.value.end">
       <input matStartDate placeholder="Start date" formControlName="start">
       <input matEndDate placeholder="End date" formControlName="end">
     </mat-date-range-input>
@@ -17,54 +17,65 @@
 
 
 <div class="example-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource$ | async">
 
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="aud">
-      <th mat-header-cell *matHeaderCellDef> AUD </th>
-      <td mat-cell *matCellDef="let element"> {{element.aud}} </td>
-    </ng-container>
+    <ng-template ngFor let-item [ngForOf]="displayedColumns$ | async" let-i="index">
+      <ng-container [matColumnDef]="item" style="width: 100px">
+        <th mat-header-cell *matHeaderCellDef> {{item}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
+      </ng-container>
+    </ng-template>
 
-    <ng-container matColumnDef="bgn">
-      <th mat-header-cell *matHeaderCellDef> BGN </th>
-      <td mat-cell *matCellDef="let element"> {{element.bgn}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="brl">
-      <th mat-header-cell *matHeaderCellDef> BRL </th>
-      <td mat-cell *matCellDef="let element"> {{element.brl}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="cad">
-      <th mat-header-cell *matHeaderCellDef> CAD </th>
-      <td mat-cell *matCellDef="let element"> {{element.cad}} </td>
-    </ng-container>
-    <ng-container matColumnDef="chf">
-      <th mat-header-cell *matHeaderCellDef> CHF </th>
-      <td mat-cell *matCellDef="let element"> {{element.chf}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="cny">
-      <th mat-header-cell *matHeaderCellDef> CNY </th>
-      <td mat-cell *matCellDef="let element"> {{element.cny}} </td>
-    </ng-container>
+<!--    <ng-container matColumnDef="date">-->
+<!--      <th mat-header-cell *matHeaderCellDef> Date </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.date}} </td>-->
+<!--    </ng-container>-->
 
-    <ng-container matColumnDef="czk">
-      <th mat-header-cell *matHeaderCellDef> CZK </th>
-      <td mat-cell *matCellDef="let element"> {{element.czk}} </td>
-    </ng-container>
+<!--    <ng-container matColumnDef="aud">-->
+<!--      <th mat-header-cell *matHeaderCellDef> AUD </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.aud}} </td>-->
+<!--    </ng-container>-->
 
-    <ng-container matColumnDef="dkk">
-      <th mat-header-cell *matHeaderCellDef> DKK </th>
-      <td mat-cell *matCellDef="let element"> {{element.dkk}} </td>
-    </ng-container>
+<!--    <ng-container matColumnDef="bgn">-->
+<!--      <th mat-header-cell *matHeaderCellDef> BGN </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.bgn}} </td>-->
+<!--    </ng-container>-->
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<!--    <ng-container matColumnDef="brl">-->
+<!--      <th mat-header-cell *matHeaderCellDef> BRL </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.brl}} </td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container matColumnDef="cad">-->
+<!--      <th mat-header-cell *matHeaderCellDef> CAD </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.cad}} </td>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="chf">-->
+<!--      <th mat-header-cell *matHeaderCellDef> CHF </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.chf}} </td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container matColumnDef="cny">-->
+<!--      <th mat-header-cell *matHeaderCellDef> CNY </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.cny}} </td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container matColumnDef="czk">-->
+<!--      <th mat-header-cell *matHeaderCellDef> CZK </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.czk}} </td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container matColumnDef="dkk">-->
+<!--      <th mat-header-cell *matHeaderCellDef> DKK </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.dkk}} </td>-->
+<!--    </ng-container>-->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns$ | async;"></tr>
   </table>
 </div>
 
