@@ -1,33 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CurrencyService } from '../../currency.service';
 
-interface CurrenciesDefault {
+interface Rates {
   value: string;
   viewValue: string;
 }
 
-interface CurrenciesOutput {
-  value: string;
-  viewValue: string;
-}
-
-/**
- * @title Select in a form
- */
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  dataForm = new FormGroup ({
-    amountControl: new FormControl('', [Validators.required]),
-    inputCurrencyControl: new FormControl('EUR'),
-    outputCurrencyControl: new FormControl('USD')
-  });
+  form: FormGroup;
 
-
-  currenciesDefault: CurrenciesDefault[] = [
+  rates: Rates[] = [
     {value: 'USD', viewValue: 'USD'},
     {value: 'EUR', viewValue: 'EUR'},
     {value: 'RUB', viewValue: 'RUB'},
@@ -36,25 +24,33 @@ export class ControlPanelComponent implements OnInit {
     {value: 'TRY', viewValue: 'TRY'}
   ];
 
-  currenciesOutput: CurrenciesOutput[] = [
-    {value: 'USD', viewValue: 'USD'},
-    {value: 'EUR', viewValue: 'EUR'},
-    {value: 'RUB', viewValue: 'RUB'},
-    {value: 'ZAR', viewValue: 'ZAR'},
-    {value: 'ZEK', viewValue: 'ZEK'},
-    {value: 'TRY', viewValue: 'TRY'}
-  ];
-
-    constructor() {}
-
-  convertSubmit(): void {
-    console.log(this.dataForm.value);
+  constructor(
+    public currencyService: CurrencyService,
+    private fb: FormBuilder,
+  ) {
   }
-
 
   ngOnInit(): void {
-
+    this.buildForm();
+    this.currencyService.getCurrency().subscribe(data => {
+      console.log(data);
+      this.form.setValue({
+        amount: data.amount,
+        inputCurrencyControl: data.rates,
+        outputCurrencyControl: data.rates
+      });
+    });
   }
 
+  convertSubmit(): void {
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      amount: ['', Validators.required],
+      inputCurrencyControl: ['EUR'],
+      outputCurrencyControl: ['USD']
+    });
+  }
 
 }

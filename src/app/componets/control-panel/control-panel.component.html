@@ -3,19 +3,19 @@
     <h1 class="control-panel__title">Currency Converter</h1>
 
     <div class="control-elements">
-      <form class="example-container" [formGroup]="dataForm">
+      <form class="example-container" [formGroup]="form">
 
         <mat-form-field appearance="outline">
           <mat-label>Amount</mat-label>
-          <input matInput type="text" placeholder="100$" formControlName="amountControl">
-          <mat-error *ngIf="dataForm.invalid">Please enter a valid amount</mat-error>
+          <input matInput type="text" placeholder="Amount" formControlName="amount">
+          <mat-error *ngIf="form.controls['amount']">Please enter a valid amount</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>From</mat-label>
           <mat-select formControlName="inputCurrencyControl">
-            <mat-option *ngFor="let currency of currenciesDefault" [value]="currency.value">
-              {{currency.viewValue}}
+            <mat-option *ngFor="let rate of rates" [value]="rate.value">
+              {{rate.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -23,8 +23,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Too</mat-label>
           <mat-select formControlName="outputCurrencyControl">
-            <mat-option *ngFor="let currency of currenciesOutput" [value]="currency.value">
-              {{currency.viewValue}}
+            <mat-option *ngFor="let rate of rates" [value]="rate.value">
+              {{rate.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -32,64 +32,13 @@
         <div class="control-elements__btn">
           <button type="submit"
                   mat-raised-button color="primary"
-                  [disabled]="!dataForm.valid"
+                  [disabled]="!form.valid"
                   (click)="convertSubmit()">
             Convert
           </button>
         </div>
 
-
       </form>
     </div>
   </mat-card>
 </div>
-
-
-<!--
-<div class="control-panel">
-  <mat-card>
-    <h1 class="control-panel__title">Currency Converter</h1>
-
-    <div class="control-elements">
-      <form class="example-container" [formGroup]="dataForm">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Amount</mat-label>
-          <input matInput type="text" placeholder="100$" [formControl]="amountControl">
-          <mat-error *ngIf="amountControl.invalid">Please enter a valid amount</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>From</mat-label>
-          <mat-select [formControl]="inputCurrencyControl">
-            <mat-option *ngFor="let currency of currenciesDefault" [value]="currency.value">
-              {{currency.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Too</mat-label>
-          <mat-select [formControl]="outputCurrencyControl">
-            <mat-option *ngFor="let currency of currenciesOutput" [value]="currency.value">
-              {{currency.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <div class="control-elements__btn">
-          <button type="submit"
-                  mat-raised-button color="primary"
-                  [disabled]="amountControl.invalid"
-                  (click)="convertSubmit()">
-            Convert
-          </button>
-        </div>
-
-
-      </form>
-    </div>
-  </mat-card>
-</div>
--->
-

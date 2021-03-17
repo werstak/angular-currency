@@ -9,6 +9,8 @@ import { HeaderComponent } from './componets/header/header.component';
 import { ControlPanelComponent } from './componets/control-panel/control-panel.component';
 import { DisplayCurrenciesComponent } from './componets/display-currencies/display-currencies.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CurrencyService } from './currency.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CurrencyService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
