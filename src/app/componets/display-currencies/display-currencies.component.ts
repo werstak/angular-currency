@@ -15,7 +15,6 @@ export class DisplayCurrenciesComponent implements OnInit {
   campaignOne: FormGroup;
   campaignTwo: FormGroup;
 
-
   constructor(
     public currencyService: CurrencyService,
   ) {
@@ -40,6 +39,8 @@ export class DisplayCurrenciesComponent implements OnInit {
       console.log(data);
     });
   }
+
+
 }
 
 export interface PeriodicElement {

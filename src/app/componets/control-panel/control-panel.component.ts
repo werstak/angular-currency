@@ -14,6 +14,7 @@ interface Rates {
 })
 export class ControlPanelComponent implements OnInit {
   form: FormGroup;
+  showResultConversion = false;
 
   rates: Rates[] = [
     {value: 'AUD', viewValue: 'AUD'},
@@ -68,8 +69,14 @@ export class ControlPanelComponent implements OnInit {
     // });
   }
 
+
+  toggleResultConversion(): void {
+    this.showResultConversion = !this.showResultConversion;
+  }
+
   convertSubmit(): void {
     console.log(this.form.value);
+    this.toggleResultConversion();
   }
 
   private buildForm(): void {
