@@ -1,30 +1,12 @@
-/*import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-control-panel',
-  templateUrl: './control-panel.component.html',
-  styleUrls: ['./control-panel.component.scss']
-})
-export class ControlPanelComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}*/
-
-
-
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-
-interface Food {
+interface CurrenciesDefault {
   value: string;
   viewValue: string;
 }
 
-interface Car {
+interface CurrenciesOutput {
   value: string;
   viewValue: string;
 }
@@ -38,41 +20,48 @@ interface Car {
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  value = 'Clear me';
-  selectedValue: string;
-  selectedCar: string;
-  selectGroup: FormGroup;
-  amountControl = new FormControl('');
-  inputCurrencyControl = new FormControl('primary');
-  outputCurrencyControl = new FormControl('primary');
+  dataForm: FormGroup;
+  amountControl = new FormControl('', [Validators.required]);
+  inputCurrencyControl = new FormControl('EUR');
+  outputCurrencyControl = new FormControl('USD');
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+  currenciesDefault: CurrenciesDefault[] = [
+    {value: 'USD', viewValue: 'USD'},
+    {value: 'EUR', viewValue: 'EUR'},
+    {value: 'RUB', viewValue: 'RUB'},
+    {value: 'ZAR', viewValue: 'ZAR'},
+    {value: 'ZEK', viewValue: 'ZEK'},
+    {value: 'TRY', viewValue: 'TRY'}
   ];
 
-  cars: Car[] = [
-    {value: 'volvo', viewValue: 'Volvo'},
-    {value: 'saab', viewValue: 'Saab'},
-    {value: 'mercedes', viewValue: 'Mercedes'}
+  currenciesOutput: CurrenciesOutput[] = [
+    {value: 'USD', viewValue: 'USD'},
+    {value: 'EUR', viewValue: 'EUR'},
+    {value: 'RUB', viewValue: 'RUB'},
+    {value: 'ZAR', viewValue: 'ZAR'},
+    {value: 'ZEK', viewValue: 'ZEK'},
+    {value: 'TRY', viewValue: 'TRY'}
   ];
 
-  constructor() {
+  /*  constructor() {
+    }*/
+
+  constructor(fb: FormBuilder) {
+    this.dataForm = fb.group({
+      amountCurrency: this.amountControl,
+      inputCurrency: this.inputCurrencyControl,
+      outputCurrency: this.outputCurrencyControl,
+    });
   }
 
-/*  constructor(fb: FormBuilder) {
-    this.selectGroup = fb.group({
-      fontSize: this.amountControl,
-      color: this.inputCurrencyControl,
-      color2: this.colorControl,
-    });
-  }*/
+  convertSubmit(): void {
+    console.log(this.dataForm.value);
+  }
+
 
   ngOnInit(): void {
 
   }
-
 
 
 }

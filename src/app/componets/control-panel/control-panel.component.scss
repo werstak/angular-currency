@@ -9,6 +9,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  &__btn {
+    display: inline-block;
+    position: relative;
+    margin-left: 8px;
+    button {
+      line-height: 40px;
+    }
+  }
 }
 
 .example-container .mat-form-field + .mat-form-field {
