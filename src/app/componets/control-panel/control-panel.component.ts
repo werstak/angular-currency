@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CurrencyService } from '../../services/currency.service';
+import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../../store/currency/currency.selectors';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -10,12 +12,17 @@ import { CurrencyService } from '../../services/currency.service';
 })
 export class ControlPanelComponent implements OnInit {
   form: FormGroup;
-  showResultConversion = false;
-  allCurrenciesShortNames$ = this.currencyService.allCurrenciesShortNames$;
-  allCurrenciesFullNames$ = this.currencyService.allCurrenciesFullNames$;
+  resultConversion = false;
+
+  allCurrenciesFullNames$ = this.store.select(selectAllCurrenciesFullNames);
+  allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
+
+  // allCurrenciesShortNames$ = this.currencyService.allCurrenciesShortNames$;
+  // allCurrenciesFullNames$ = this.currencyService.allCurrenciesFullNames$;
 
 
   constructor(
+    private store: Store,
     public currencyService: CurrencyService,
     private fb: FormBuilder,
   ) {
@@ -34,13 +41,13 @@ export class ControlPanelComponent implements OnInit {
   }
 
 
-  toggleResultConversion(): void {
-    this.showResultConversion = !this.showResultConversion;
+  showResultConversion(): void {
+    this.resultConversion = !this.resultConversion;
   }
 
   convertSubmit(): void {
     console.log(this.form.value);
-    this.toggleResultConversion();
+    this.showResultConversion();
   }
 
   private buildForm(): void {
