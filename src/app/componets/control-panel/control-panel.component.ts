@@ -12,6 +12,7 @@ export class ControlPanelComponent implements OnInit {
   form: FormGroup;
   showResultConversion = false;
   allCurrenciesShortNames$ = this.currencyService.allCurrenciesShortNames$;
+  allCurrenciesFullNames$ = this.currencyService.allCurrenciesFullNames$;
 
 
   constructor(

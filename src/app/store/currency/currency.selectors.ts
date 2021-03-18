@@ -4,9 +4,10 @@ import { CurrencyState } from './currency.reducer';
 
 export const selectCurrencyState = (state: State) => state.currency;
 
-export const selectAllCurrencies = createSelector(
+export const selectAllCurrenciesFullNames = createSelector(
   selectCurrencyState,
-  (state: CurrencyState) => state.entities
+  (state: CurrencyState) => Object.values(state.entities)
+  // (state: CurrencyState) => state.entities
 );
 
 export const selectAllCurrenciesShortNames = createSelector(

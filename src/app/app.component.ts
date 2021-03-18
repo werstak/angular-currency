@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fetchCurrencies } from './store/currency/currency.actions';
-import { selectAllCurrencies } from './store/currency/currency.selectors';
+import { fetchCurrenciesAction } from './store/currency/currency.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +13,6 @@ export class AppComponent {
   constructor(
     public store: Store,
   ) {
-    this.store.dispatch(fetchCurrencies());
+    this.store.dispatch(fetchCurrenciesAction());
   }
 }

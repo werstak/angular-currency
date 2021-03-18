@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
-import { selectAllCurrencies, selectAllCurrenciesShortNames } from '../store/currency/currency.selectors';
+import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../store/currency/currency.selectors';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 })
 export class CurrencyService {
 
-  allCurrencies$ = this.store.select(selectAllCurrencies);
+  allCurrenciesFullNames$ = this.store.select(selectAllCurrenciesFullNames);
   allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
 
   constructor(

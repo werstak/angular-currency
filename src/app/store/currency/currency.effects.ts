@@ -3,15 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { CurrencyService } from '../../services/currency.service';
-import { fetchCurrencies, fetchCurrenciesSuccess } from './currency.actions';
+import { fetchCurrenciesAction, fetchCurrenciesSuccessAction } from './currency.actions';
 
 @Injectable()
 export class CurrencyEffects {
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
-    ofType(fetchCurrencies),
+    ofType(fetchCurrenciesAction),
     mergeMap(() => this.currencyService.fetchCurrencies()
     .pipe(
-      map(currencies => fetchCurrenciesSuccess({payload: currencies})),
+      map(currencies => fetchCurrenciesSuccessAction({payload: currencies})),
       catchError(() => EMPTY)
     )))
   );
