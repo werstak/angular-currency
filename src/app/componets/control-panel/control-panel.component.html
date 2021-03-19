@@ -13,7 +13,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>From</mat-label>
-          <mat-select formControlName="inputCurrencyControl">
+          <mat-select formControlName="from">
             <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
               {{currency}}
             </mat-option>
@@ -22,7 +22,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Too</mat-label>
-          <mat-select formControlName="outputCurrencyControl">
+          <mat-select formControlName="to">
             <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
               {{currency}}
             </mat-option>
@@ -41,11 +41,9 @@
       </form>
     </div>
 
-<!--    <p *ngFor="let currencyFullName of allCurrenciesFullNames$ | async">{{currencyFullName}}</p>-->
-
     <div class="control-panel__hiddenBloc"
-         *ngIf="resultConversion">
-      <p>5664654656465465</p>
+         *ngIf="dataSource$">
+      <p>{{dataSource$ | async | json}}</p>
 
     </div>
   </mat-card>

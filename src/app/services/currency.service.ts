@@ -24,9 +24,22 @@ export class CurrencyService {
       return this.http.get('https://api.frankfurter.app/latest').subscribe(console.log);
     }*/
 
-  fetchCurrencies(): Observable<{[key: string]: string}>{
-    return this.http.get<{[key: string]: string}>(`${environment.serverUrl}currencies`);
+  fetchCurrencies(): Observable<{ [key: string]: string }> {
+    return this.http.get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
   }
+
+  convertCurrencies(params: any): Observable<any> {
+    // console.log('convertCurrencies');
+    return this.http.get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`)
+      .pipe(
+        catchError(error => {
+          console.log('Error: ', error.message);
+          return throwError(error);
+        }),
+      );
+
+  }
+
 
   getLatestCurrency(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}latest`)
@@ -43,12 +56,12 @@ export class CurrencyService {
     end: Date,
   }): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}${params.start}..${params.end}`)
-    .pipe(
-      catchError(error => {
-        console.log('Error: ', error.message);
-        return throwError(error);
-      }),
-    );
+      .pipe(
+        catchError(error => {
+          console.log('Error: ', error.message);
+          return throwError(error);
+        }),
+      );
   }
 
 }

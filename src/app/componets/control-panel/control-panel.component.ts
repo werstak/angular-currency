@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CurrencyService } from '../../services/currency.service';
 import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../../store/currency/currency.selectors';
 import { Store } from '@ngrx/store';
+import { fetchCurrenciesAction } from '../../store/currency/currency.actions';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { Store } from '@ngrx/store';
 export class ControlPanelComponent implements OnInit {
   form: FormGroup;
   resultConversion = false;
+  dataSource$: Observable<any>;
 
   allCurrenciesFullNames$ = this.store.select(selectAllCurrenciesFullNames);
   allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
@@ -41,20 +44,25 @@ export class ControlPanelComponent implements OnInit {
   }
 
 
-  showResultConversion(): void {
-    this.resultConversion = !this.resultConversion;
-  }
+  // showResultConversion(): void {
+  //   this.resultConversion = !this.resultConversion;
+  // }
 
   convertSubmit(): void {
-    console.log(this.form.value);
-    this.showResultConversion();
+    // this.store.dispatch(fetchCurrenciesAction());
+    const params = this.form.value;
+    console.log(params);
+
+    this.dataSource$ = this.currencyService.convertCurrencies(params);
+    console.log(this.dataSource$);
+    // this.showResultConversion();
   }
 
   private buildForm(): void {
     this.form = this.fb.group({
       amount: ['', Validators.required],
-      inputCurrencyControl: ['EUR'],
-      outputCurrencyControl: ['USD']
+      from: ['EUR'],
+      to: ['USD']
     });
   }
 
