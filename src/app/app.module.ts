@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './componets/header/header.component';
-import { ControlPanelComponent } from './componets/control-panel/control-panel.component';
+import { ConverterPanelComponent } from './componets/converter-panel/converter-panel.component';
 import { DisplayCurrenciesComponent } from './componets/display-currencies/display-currencies.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,7 +22,7 @@ import { CurrencyEffects } from './store/currency/currency.effects';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ControlPanelComponent,
+    ConverterPanelComponent,
     DisplayCurrenciesComponent,
   ],
   imports: [

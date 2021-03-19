@@ -1,8 +1,8 @@
-<div class="control-panel">
+<div class="converter-panel">
   <mat-card>
-    <h1 class="control-panel__title">Currency Converter</h1>
+    <h1 class="converter-panel__title">Currency Converter</h1>
 
-    <div class="control-elements">
+    <div class="converter-form">
       <form class="example-container" [formGroup]="form">
 
         <mat-form-field appearance="outline">
@@ -29,7 +29,7 @@
           </mat-select>
         </mat-form-field>
 
-        <div class="control-elements__btn">
+        <div class="converter-form__btn">
           <button type="submit"
                   mat-raised-button color="primary"
                   [disabled]="!form.valid"
@@ -41,10 +41,17 @@
       </form>
     </div>
 
-    <div class="control-panel__hiddenBloc"
-         *ngIf="dataSource$">
-      <p>{{dataSource$ | async | json}}</p>
-
+    <div class="panel-hidden"
+         *ngIf="convertRate">
+      <div class="panel-hidden__currencyOne">
+        <span class="panel-hidden__currencyValue">{{inputValue}}</span>
+        <span>{{convertFromCurrency}}</span> =
+      </div>
+      <div class="panel-hidden__currencyTwo">
+        <span class="panel-hidden__currencyValue">{{convertRate}}</span>
+        <span>{{convertToCurrency}}</span>
+      </div>
     </div>
+
   </mat-card>
 </div>

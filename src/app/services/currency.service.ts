@@ -28,8 +28,7 @@ export class CurrencyService {
     return this.http.get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
   }
 
-  convertCurrencies(params: any): Observable<any> {
-    // console.log('convertCurrencies');
+  fetchConvertCurrencies(params: any): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`)
       .pipe(
         catchError(error => {

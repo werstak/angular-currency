@@ -1,0 +1,51 @@
+.converter-panel {
+  margin: 0 0 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+}
+
+.converter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__btn {
+    display: inline-block;
+    position: relative;
+    margin-left: 8px;
+
+    button {
+      line-height: 40px;
+    }
+  }
+}
+
+.panel-hidden {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__currencyOne {
+    font-size: 20px;
+    line-height: 20px;
+    margin: 0 0 15px;
+  }
+
+  &__currencyValue {
+    padding: 0 13px 0 0;
+  }
+
+  &__currencyTwo {
+    font-size: 25px;
+    line-height: 25px;
+    color: #55ff5b;
+  }
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
