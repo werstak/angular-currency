@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../store/currency/currency.selectors';
 import { Store } from '@ngrx/store';
+import { CurrencyInterfaces } from '../interfaces/currency-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,17 @@ export class CurrencyService {
   ) {
   }
 
-  /*  getCurrency(): void {
-      return this.http.get('https://api.frankfurter.app/latest').subscribe(console.log);
-    }*/
 
   fetchCurrencies(): Observable<{ [key: string]: string }> {
     return this.http.get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
   }
 
-  fetchConvertCurrencies(params: any): Observable<any> {
+  /*  fetchConvertCurrencies(params: any): Observable<CurrencyInterfaces> {
+      return this.http.get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`);
+    }*/
+
+
+  fetchConvertCurrencies(params: any): Observable<CurrencyInterfaces> {
     return this.http.get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`)
       .pipe(
         catchError(error => {
@@ -36,19 +39,8 @@ export class CurrencyService {
           return throwError(error);
         }),
       );
-
   }
 
-
-  getLatestCurrency(): Observable<any> {
-    return this.http.get<any>(`${environment.serverUrl}latest`)
-      .pipe(
-        catchError(error => {
-          console.log('Error: ', error.message);
-          return throwError(error);
-        }),
-      );
-  }
 
   getCurrency(params: {
     start: Date,
@@ -62,5 +54,21 @@ export class CurrencyService {
         }),
       );
   }
+
+
+  /*  getLatestCurrency(): Observable<any> {
+      return this.http.get<any>(`${environment.serverUrl}latest`)
+        .pipe(
+          catchError(error => {
+            console.log('Error: ', error.message);
+            return throwError(error);
+          }),
+        );
+    }*/
+
+  /*  getCurrency(): void {
+    return this.http.get('https://api.frankfurter.app/latest').subscribe(console.log);
+  }*/
+
 
 }

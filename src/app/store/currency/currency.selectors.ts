@@ -14,3 +14,8 @@ export const selectAllCurrenciesShortNames = createSelector(
   selectCurrencyState,
   (state: CurrencyState) => Object.keys(state.entities)
 );
+
+export const selectConvertCurrency = createSelector(
+  selectCurrencyState,
+  (state: CurrencyState) => Object.keys(state.convert)
+);

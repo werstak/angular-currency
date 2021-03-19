@@ -8,6 +8,6 @@ export const fetchCurrenciesSuccessAction = createAction(
 
 export const convertCurrencyAction = createAction('[Currency] Convert Currency');
 export const convertCurrencySuccessAction = createAction(
-  '[Currency] Fetch Currencies Success',
-  props<{ payload: { [key: string]: string } }>()
+  '[Currency] Convert Currencies Success',
+  props<any>()
 );
