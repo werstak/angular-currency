@@ -5,15 +5,13 @@ import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../store/currency/currency.selectors';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { CurrencyInterfaces } from '../interfaces/currency-interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyService {
-
-  allCurrenciesFullNames$ = this.store.select(selectAllCurrenciesFullNames);
-  allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
 
   constructor(
     private store: Store,
@@ -45,14 +43,24 @@ export class CurrencyService {
   getCurrency(params: {
     start: Date,
     end: Date,
-  }): Observable<any> {
-    return this.http.get<any>(`${environment.serverUrl}${params.start}..${params.end}`)
-      .pipe(
-        catchError(error => {
-          console.log('Error: ', error.message);
-          return throwError(error);
-        }),
-      );
+  }): Observable<{
+    amount: number,
+    base: string,
+    end_date: string
+    start_date: string
+    rates: { [key: string]: { [key: string]: number }},
+  }> {
+
+    const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
+    const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
+
+    return this.http.get<{
+      amount: number,
+      base: string,
+      end_date: string
+      start_date: string
+      rates: { [key: string]: { [key: string]: number }},
+    }>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
   }
 
 
@@ -69,6 +77,4 @@ export class CurrencyService {
   /*  getCurrency(): void {
     return this.http.get('https://api.frankfurter.app/latest').subscribe(console.log);
   }*/
-
-
 }

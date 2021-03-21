@@ -6,8 +6,19 @@ export const fetchCurrenciesSuccessAction = createAction(
   props<{ payload: { [key: string]: string } }>()
 );
 
-export const convertCurrencyAction = createAction('[Currency] Convert Currency');
-export const convertCurrencySuccessAction = createAction(
-  '[Currency] Convert Currencies Success',
-  props<any>()
+export const fetchRatesAction = createAction(
+  '[Currency] Fetch Rates',
+  props<{ start: Date, end: Date }>()
+);
+export const fetchRatesSuccessAction = createAction(
+  '[Currency] Fetch Rates Success',
+  props<{
+    payload: {
+      amount: number,
+      base: string,
+      end_date: string
+      start_date: string
+      rates: { [key: string]: { [key: string]: number }},
+    }
+  }>()
 );

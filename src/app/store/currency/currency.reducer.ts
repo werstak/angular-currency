@@ -1,14 +1,16 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { fetchCurrenciesSuccessAction, convertCurrencySuccessAction } from './currency.actions';
+import { fetchCurrenciesSuccessAction, fetchRatesSuccessAction } from './currency.actions';
 
-export interface CurrencyState {
+export interface currencyState {
   entities: {[key: string]: string};
-  convert: any;
+  rates: {[key: string]: {[key: string]: number}};
+  baseCurrency: string;
 }
 
-export const initialState: CurrencyState = {
+export const initialState: currencyState = {
   entities: {},
-  convert: {},
+  rates: {},
+  baseCurrency: 'EUR',
 };
 
 const reducer = createReducer(
@@ -16,14 +18,15 @@ const reducer = createReducer(
   on(fetchCurrenciesSuccessAction, (state, {payload}) => {
     return ({...state, entities: payload});
   }),
-
-  on(convertCurrencySuccessAction, (state, {payload}) => {
-    return ({...state, convert: payload});
+  on(fetchRatesSuccessAction, (state, {payload}) => {
+    return {
+      ...state,
+      rates: payload.rates,
+      baseCurrency: payload.base,
+    };
   }),
-
-
 );
 
-export function currencyReducer(state: CurrencyState | undefined, action: Action): CurrencyState {
+export function currencyReducer(state: currencyState | undefined, action: Action): currencyState {
   return reducer(state, action);
 }

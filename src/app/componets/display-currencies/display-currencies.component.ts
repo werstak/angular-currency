@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { fetchRatesAction } from '../../store/currency/currency.actions';
+import { Store } from '@ngrx/store';
+import * as moment from 'moment';
+import {
+  selectAllCurrenciesShortNames,
+  selectBaseCurrency,
+  selectRates
+} from '../../store/currency/currency.selectors';
 
 @Component({
   selector: 'app-display-currencies',
@@ -12,44 +19,46 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 })
 export class DisplayCurrenciesComponent implements OnInit {
   displayedColumns$: Observable<string[]>;
-  dataSource$: Observable<any>;
 
   campaignOne = new FormGroup({
     start: new FormControl(null, Validators.required),
     end: new FormControl(null, Validators.required)
   });
 
+  dataSource$ = this.store.select(selectRates);
+  allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
+  baseCurrency$ = this.store.select(selectBaseCurrency);
+
   constructor(
     public currencyService: CurrencyService,
+    public store: Store,
   ) {
   }
 
 
   ngOnInit(): void {
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
+    this.campaignOne.valueChanges
+      .pipe(
+        filter(() => this.campaignOne.valid),
+        filter((params: {start: Date, end: Date}) => (params.start <= params.end)),
+      )
+      .subscribe((params: {start: Date, end: Date}) => {
+        this.store.dispatch(fetchRatesAction(params));
+      });
 
     this.campaignOne.reset({
-      start: new Date(year, month, 13),
-      end: new Date(year, month, 16),
+      start: moment().subtract(10, 'days').toDate(),
+      end: moment().toDate(),
     });
 
-    this.dataSource$ = this.campaignOne.valueChanges
-    .pipe(
-      filter(() => this.campaignOne.valid),
-      switchMap(params => {
-        params.start = '2020-01-01'; // moment(params.start).format('yyyy-mm-dd')
-        params.end = '2020-01-31';
-        return this.currencyService.getCurrency(params);
+    this.displayedColumns$ = combineLatest([
+      this.allCurrenciesShortNames$,
+      this.baseCurrency$
+    ]).pipe(
+      map(([currencies, baseCurrency]) => {
+        const filteredCurrencies = currencies.filter(currency => currency !== baseCurrency);
+        return ['Date', ...filteredCurrencies];
       }),
-      map(({rates}) => {
-        return Object.keys(rates).map(date => ({...rates[date], Date: date}));
-      })
-    );
-
-    this.displayedColumns$ = this.currencyService.allCurrenciesShortNames$.pipe(
-      map(currencies => ['Date', ...currencies]),
     );
   }
 }

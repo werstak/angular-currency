@@ -30,8 +30,7 @@ const modules = [
   MatSliderModule,
   MatListModule,
   MatDatepickerModule,
-  MatNativeDateModule,
-  // MatMomentDateModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

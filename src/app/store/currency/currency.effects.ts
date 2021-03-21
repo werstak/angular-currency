@@ -4,10 +4,8 @@ import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { CurrencyService } from '../../services/currency.service';
 import {
-  convertCurrencyAction,
-  convertCurrencySuccessAction,
   fetchCurrenciesAction,
-  fetchCurrenciesSuccessAction
+  fetchCurrenciesSuccessAction, fetchRatesAction, fetchRatesSuccessAction
 } from './currency.actions';
 
 @Injectable()
@@ -15,22 +13,22 @@ export class CurrencyEffects {
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),
     mergeMap(() => this.currencyService.fetchCurrencies()
-    .pipe(
-      map(currencies => fetchCurrenciesSuccessAction({payload: currencies})),
-      catchError(() => EMPTY)
-    )))
-  );
-
-
-/*  convertCurrency$ = createEffect(() => this.actions$.pipe(
-    ofType(convertCurrencyAction),
-    mergeMap(() => this.currencyService.fetchConvertCurrencies()
       .pipe(
-        map(currencies => convertCurrencySuccessAction({payload: currencies})),
+        map(currencies => fetchCurrenciesSuccessAction({payload: currencies})),
         catchError(() => EMPTY)
       )))
-  );*/
+  );
 
+  fetchRates$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchRatesAction),
+    mergeMap((data: { start: Date, end: Date }) => {
+      return this.currencyService.getCurrency(data)
+        .pipe(
+          map((payload) => fetchRatesSuccessAction({payload})),
+          catchError(() => EMPTY)
+        );
+    }))
+  );
 
   constructor(
     private actions$: Actions,
