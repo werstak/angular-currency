@@ -13,6 +13,7 @@ import { CurrencyService } from '../../services/currency.service';
   templateUrl: './converter-panel.component.html',
   styleUrls: ['./converter-panel.component.scss']
 })
+
 export class ConverterPanelComponent implements OnInit, OnDestroy {
   form: FormGroup;
 

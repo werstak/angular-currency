@@ -21,6 +21,7 @@ import * as moment from 'moment';
   templateUrl: './display-currencies.component.html',
   styleUrls: ['./display-currencies.component.scss']
 })
+
 export class DisplayCurrenciesComponent implements OnInit {
   displayedColumns$: Observable<string[]>;
 

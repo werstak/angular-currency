@@ -9,6 +9,7 @@ import {
 } from './currency.actions';
 
 @Injectable()
+
 export class CurrencyEffects {
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),

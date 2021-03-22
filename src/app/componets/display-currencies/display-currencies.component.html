@@ -1,20 +1,24 @@
 <mat-card>
-  <mat-form-field class="example-form-field" appearance="fill">
-    <mat-label>First campaign</mat-label>
-    <mat-date-range-input
-      [formGroup]="campaignOne"
-      [rangePicker]="campaignOnePicker"
-      [comparisonStart]="campaignOne.value.start"
-      [comparisonEnd]="campaignOne.value.end">
-      <input matStartDate placeholder="Start date" formControlName="start">
-      <input matEndDate placeholder="End date" formControlName="end">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
-    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-  </mat-form-field>
+  <div class="date-picker">
+    <h2>Exchange rate for the selected period of time</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>First campaign</mat-label>
+      <mat-date-range-input
+        [formGroup]="campaignOne"
+        [rangePicker]="campaignOnePicker"
+        [comparisonStart]="campaignOne.value.start"
+        [comparisonEnd]="campaignOne.value.end">
+        <input matStartDate placeholder="Start date" formControlName="start">
+        <input matEndDate placeholder="End date" formControlName="end">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
 </mat-card>
 
-<div class="example-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8">
   <table mat-table [dataSource]="dataSource$ | async">
 
     <ng-template ngFor let-item [ngForOf]="displayedColumns$ | async" let-i="index">

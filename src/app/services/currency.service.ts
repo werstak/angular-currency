@@ -11,6 +11,7 @@ import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CurrencyService {
 
   constructor(

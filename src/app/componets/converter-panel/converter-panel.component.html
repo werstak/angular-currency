@@ -2,44 +2,42 @@
   <mat-card>
     <h1 class="converter-panel__title">Currency Converter</h1>
 
-    <div class="converter-form">
-      <form class="example-container" [formGroup]="form">
+    <form class="converter-form" [formGroup]="form">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Amount</mat-label>
-          <input matInput type="text" placeholder="Amount" formControlName="amount">
-          <mat-error *ngIf="form.controls['amount']">Please enter a valid amount</mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput type="text" placeholder="Amount" formControlName="amount">
+        <mat-error *ngIf="form.controls['amount']">Please enter a valid amount</mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>From</mat-label>
-          <mat-select formControlName="from">
-            <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
-              {{currency}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+        <mat-select formControlName="from">
+          <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
+            {{currency}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Too</mat-label>
-          <mat-select formControlName="to">
-            <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
-              {{currency}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Too</mat-label>
+        <mat-select formControlName="to">
+          <mat-option *ngFor="let currency of allCurrenciesShortNames$ | async" [value]="currency">
+            {{currency}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <div class="converter-form__btn">
-          <button type="submit"
-                  mat-raised-button color="primary"
-                  [disabled]="!form.valid"
-                  (click)="convertSubmit()">
-            Convert
-          </button>
-        </div>
+      <div class="converter-form__btn">
+        <button type="submit"
+                mat-raised-button color="primary"
+                [disabled]="!form.valid"
+                (click)="convertSubmit()">
+          Convert
+        </button>
+      </div>
 
-      </form>
-    </div>
+    </form>
 
     <div class="panel-hidden"
          *ngIf="convertRate">
