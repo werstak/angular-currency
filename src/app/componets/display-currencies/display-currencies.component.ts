@@ -23,8 +23,8 @@ import * as moment from 'moment';
 })
 
 export class DisplayCurrenciesComponent implements OnInit {
-  displayedColumns$: Observable<string[]>;
 
+  displayedColumns$: Observable<string[]>;
   campaignOne = new FormGroup({
     start: new FormControl(null, Validators.required),
     end: new FormControl(null, Validators.required)
@@ -41,6 +41,34 @@ export class DisplayCurrenciesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.fetchRates();
+    // this.campaignOne.valueChanges
+    //   .pipe(
+    //     filter(() => this.campaignOne.valid),
+    //     filter((params: { start: Date, end: Date }) => (params.start <= params.end)),
+    //   )
+    //   .subscribe((params: { start: Date, end: Date }) => {
+    //     this.store.dispatch(fetchRatesAction(params));
+    //   });
+    //
+    // this.campaignOne.reset({
+    //   start: moment().subtract(10, 'days').toDate(),
+    //   end: moment().toDate(),
+    // });
+    //
+    // this.displayedColumns$ = combineLatest([
+    //   this.allCurrenciesShortNames$,
+    //   this.baseCurrency$
+    // ]).pipe(
+    //   map(([currencies, baseCurrency]) => {
+    //     const filteredCurrencies = currencies.filter(currency => currency !== baseCurrency);
+    //     return ['Date', ...filteredCurrencies];
+    //   }),
+    // );
+  }
+
+  private fetchRates(): void {
     this.campaignOne.valueChanges
       .pipe(
         filter(() => this.campaignOne.valid),
@@ -65,4 +93,5 @@ export class DisplayCurrenciesComponent implements OnInit {
       }),
     );
   }
+
 }

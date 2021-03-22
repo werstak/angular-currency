@@ -11,6 +11,13 @@ import {
 @Injectable()
 
 export class CurrencyEffects {
+
+  constructor(
+    private actions$: Actions,
+    private currencyService: CurrencyService
+  ) {
+  }
+
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),
     mergeMap(() => this.currencyService.fetchCurrencies()
@@ -30,10 +37,4 @@ export class CurrencyEffects {
         );
     }))
   );
-
-  constructor(
-    private actions$: Actions,
-    private currencyService: CurrencyService
-  ) {
-  }
 }
