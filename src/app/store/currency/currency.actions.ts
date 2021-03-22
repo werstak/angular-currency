@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { CurrencyInterfaces } from '../../interfaces/currency-interfaces';
 
 export const fetchCurrenciesAction = createAction('[Currency] Fetch Currencies');
 export const fetchCurrenciesSuccessAction = createAction(
@@ -12,13 +13,5 @@ export const fetchRatesAction = createAction(
 );
 export const fetchRatesSuccessAction = createAction(
   '[Currency] Fetch Rates Success',
-  props<{
-    payload: {
-      amount: number,
-      base: string,
-      end_date: string
-      start_date: string
-      rates: { [key: string]: { [key: string]: number }},
-    }
-  }>()
+  props<{ payload: CurrencyInterfaces }>()
 );

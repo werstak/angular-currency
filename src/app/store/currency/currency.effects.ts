@@ -33,5 +33,6 @@ export class CurrencyEffects {
   constructor(
     private actions$: Actions,
     private currencyService: CurrencyService
-  ) {}
+  ) {
+  }
 }

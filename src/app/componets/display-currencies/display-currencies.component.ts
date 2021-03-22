@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyService } from '../../services/currency.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { fetchRatesAction } from '../../store/currency/currency.actions';
+
 import { Store } from '@ngrx/store';
-import * as moment from 'moment';
+import { fetchRatesAction } from '../../store/currency/currency.actions';
 import {
   selectAllCurrenciesShortNames,
   selectBaseCurrency,
   selectRates
 } from '../../store/currency/currency.selectors';
+
+import { CurrencyService } from '../../services/currency.service';
+
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-display-currencies',
@@ -35,14 +39,13 @@ export class DisplayCurrenciesComponent implements OnInit {
   ) {
   }
 
-
   ngOnInit(): void {
     this.campaignOne.valueChanges
       .pipe(
         filter(() => this.campaignOne.valid),
-        filter((params: {start: Date, end: Date}) => (params.start <= params.end)),
+        filter((params: { start: Date, end: Date }) => (params.start <= params.end)),
       )
-      .subscribe((params: {start: Date, end: Date}) => {
+      .subscribe((params: { start: Date, end: Date }) => {
         this.store.dispatch(fetchRatesAction(params));
       });
 
