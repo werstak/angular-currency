@@ -6,7 +6,7 @@ export const selectCurrencyState = (state: State) => state.currency;
 
 export const selectConvert = createSelector(
   selectCurrencyState,
-  (state: CurrencyState) => Object.values(state.converts)
+  (state: CurrencyState) => state.converts
 );
 
 export const selectAllCurrenciesFullNames = createSelector(

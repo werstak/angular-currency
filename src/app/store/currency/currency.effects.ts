@@ -11,7 +11,6 @@ import {
 } from './currency.actions';
 
 @Injectable()
-
 export class CurrencyEffects {
 
   constructor(
@@ -20,16 +19,16 @@ export class CurrencyEffects {
   ) {
   }
 
-    fetchConvertCurrencies$ = createEffect(() => this.actions$.pipe(
-      ofType(fetchConvertCurrenciesAction),
-      mergeMap((params) => {
-        return this.currencyService.fetchConvertCurrencies(params)
-          .pipe(
-            map((payload) => fetchConvertSuccessAction({payload})),
-            catchError(() => EMPTY)
-          );
-      }))
-    );
+  fetchConvertCurrencies$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchConvertCurrenciesAction),
+    mergeMap((params) => {
+      return this.currencyService.fetchConvertCurrencies(params)
+        .pipe(
+          map((payload) => fetchConvertSuccessAction({payload})),
+          catchError(() => EMPTY)
+        );
+    }))
+  );
 
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),
@@ -50,8 +49,4 @@ export class CurrencyEffects {
         );
     }))
   );
-
-
-
-
 }

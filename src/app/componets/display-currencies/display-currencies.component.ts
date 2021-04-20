@@ -45,12 +45,12 @@ export class DisplayCurrenciesComponent implements OnInit {
   }
 
   private fetchRates(): void {
-    this.campaignOne.valueChanges
-      .pipe(
-        filter(() => this.campaignOne.valid),
-        filter((params: { start: Date, end: Date }) => (params.start <= params.end)),
-      )
-      .subscribe((params: { start: Date, end: Date }) => {
+    const values: Observable<{ start: Date, end: Date }> = this.campaignOne.valueChanges;
+    values.pipe(
+      filter(() => this.campaignOne.valid),
+      filter(({start, end}) => start <= end),
+    )
+      .subscribe((params) => {
         this.store.dispatch(fetchRatesAction(params));
       });
 

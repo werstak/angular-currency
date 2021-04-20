@@ -1,15 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { CurrencyInterfaces } from '../../interfaces/currency-interfaces';
+import { ConvertCurrencyInterfaces } from '../../interfaces/convert-currency-interfaces';
 
 
 export const fetchConvertCurrenciesAction = createAction(
   '[Currency] Fetch Convert',
-  props<{ payload }>()
+  props<{ amount: number, from: string, to: string }>()
 );
 
 export const fetchConvertSuccessAction = createAction(
   '[Currency] Fetch Convert Success',
-  props<{ payload }>()
+  props<{ payload: ConvertCurrencyInterfaces }>()
 );
 
 export const fetchCurrenciesAction = createAction(

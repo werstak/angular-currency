@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { CurrencyService } from '../../services/currency.service';
 import { fetchConvertCurrenciesAction, fetchRatesAction } from '../../store/currency/currency.actions';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -37,32 +38,22 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-  }
 
+    this.subConvert = this.converts$
+      .pipe(filter(data => Boolean(data)))
+      .subscribe(data => {
+        this.convertFromCurrency = data.from;
+        this.convertToCurrency = data.to;
+        this.convertRate = data.toAmount;
+      });
+  }
 
   convertSubmit(): void {
     const params = this.form.value;
     this.inputValue = params.amount;
 
     this.store.dispatch(fetchConvertCurrenciesAction(params));
-
-    this.subConvert = this.currencyService.fetchConvertCurrencies(params).subscribe(data => {
-      this.convertFromCurrency = data.base;
-      this.convertToCurrency = Object.keys(data.rates);
-      this.convertRate = Object.values(data.rates);
-    });
   }
-
-/*  convertSubmit(): void {
-    const params = this.form.value;
-    this.inputValue = params.amount;
-
-    this.subConvert = this.currencyService.fetchConvertCurrencies(params).subscribe(data => {
-      this.convertFromCurrency = data.base;
-      this.convertToCurrency = Object.keys(data.rates);
-      this.convertRate = Object.values(data.rates);
-    });
-  }*/
 
   private buildForm(): void {
     this.form = this.fb.group({
