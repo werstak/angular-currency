@@ -4,6 +4,8 @@ import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { CurrencyService } from '../../services/currency.service';
 import {
+  fetchConvertCurrenciesAction,
+  fetchConvertSuccessAction,
   fetchCurrenciesAction,
   fetchCurrenciesSuccessAction, fetchRatesAction, fetchRatesSuccessAction
 } from './currency.actions';
@@ -17,6 +19,17 @@ export class CurrencyEffects {
     private currencyService: CurrencyService
   ) {
   }
+
+    fetchConvertCurrencies$ = createEffect(() => this.actions$.pipe(
+      ofType(fetchConvertCurrenciesAction),
+      mergeMap((params) => {
+        return this.currencyService.fetchConvertCurrencies(params)
+          .pipe(
+            map((payload) => fetchConvertSuccessAction({payload})),
+            catchError(() => EMPTY)
+          );
+      }))
+    );
 
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),
@@ -37,4 +50,8 @@ export class CurrencyEffects {
         );
     }))
   );
+
+
+
+
 }

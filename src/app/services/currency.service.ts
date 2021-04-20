@@ -16,16 +16,13 @@ export class CurrencyService {
 
   constructor(
     private store: Store,
-    private http: HttpClient,
+    private httpClient: HttpClient,
   ) {
   }
 
-  fetchCurrencies(): Observable<{ [key: string]: string }> {
-    return this.http.get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
-  }
-
   fetchConvertCurrencies(params: any): Observable<CurrencyInterfaces> {
-    return this.http.get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`)
+    return this.httpClient
+      .get<any>(`${environment.serverUrl}latest?amount=${params.amount}&from=${params.from}&to=${params.to}`)
       .pipe(
         catchError(error => {
           console.log('Error: ', error.message);
@@ -34,6 +31,10 @@ export class CurrencyService {
       );
   }
 
+  fetchCurrencies(): Observable<{ [key: string]: string }> {
+    return this.httpClient
+      .get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
+  }
 
   getCurrency(params: {
     start: Date,
@@ -41,7 +42,8 @@ export class CurrencyService {
   }): Observable<CurrencyInterfaces> {
     const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
     const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
-    return this.http.get<CurrencyInterfaces>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
+    return this.httpClient
+      .get<CurrencyInterfaces>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
   }
 
 }

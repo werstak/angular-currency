@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames } from '../../store/currency/currency.selectors';
+import { selectAllCurrenciesFullNames, selectAllCurrenciesShortNames, selectConvert } from '../../store/currency/currency.selectors';
 import { Subscription } from 'rxjs';
 
 import { CurrencyService } from '../../services/currency.service';
+import { fetchConvertCurrenciesAction, fetchRatesAction } from '../../store/currency/currency.actions';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
   allCurrenciesShortNames$ = this.store.select(selectAllCurrenciesShortNames);
   allCurrenciesFullNames$ = this.store.select(selectAllCurrenciesFullNames);
+  converts$ = this.store.select(selectConvert);
 
   constructor(
     private store: Store,
@@ -42,12 +44,25 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
     const params = this.form.value;
     this.inputValue = params.amount;
 
+    this.store.dispatch(fetchConvertCurrenciesAction(params));
+
     this.subConvert = this.currencyService.fetchConvertCurrencies(params).subscribe(data => {
       this.convertFromCurrency = data.base;
       this.convertToCurrency = Object.keys(data.rates);
       this.convertRate = Object.values(data.rates);
     });
   }
+
+/*  convertSubmit(): void {
+    const params = this.form.value;
+    this.inputValue = params.amount;
+
+    this.subConvert = this.currencyService.fetchConvertCurrencies(params).subscribe(data => {
+      this.convertFromCurrency = data.base;
+      this.convertToCurrency = Object.keys(data.rates);
+      this.convertRate = Object.values(data.rates);
+    });
+  }*/
 
   private buildForm(): void {
     this.form = this.fb.group({

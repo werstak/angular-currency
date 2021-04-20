@@ -4,6 +4,11 @@ import { CurrencyState } from './currency.reducer';
 
 export const selectCurrencyState = (state: State) => state.currency;
 
+export const selectConvert = createSelector(
+  selectCurrencyState,
+  (state: CurrencyState) => Object.values(state.converts)
+);
+
 export const selectAllCurrenciesFullNames = createSelector(
   selectCurrencyState,
   (state: CurrencyState) => Object.values(state.entities)
