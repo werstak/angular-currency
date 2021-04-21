@@ -9,7 +9,7 @@ import { DisplayCurrenciesComponent } from './componets/display-currencies/displ
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,6 +19,7 @@ import { reducers, metaReducers } from './store';
 import { environment } from '../environments/environment';
 
 import { CurrencyService } from './services/currency.service';
+import { BaseUrlInterceptor } from './core/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,14 @@ import { CurrencyService } from './services/currency.service';
     EffectsModule.forRoot([CurrencyEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
-  providers: [CurrencyService],
+  providers: [
+    CurrencyService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -21,6 +21,9 @@ export class CurrencyService {
   ) {
   }
 
+  baseUrl = 'baseUrl';
+
+  /** Getting the result of currency conversion */
   fetchConvertCurrencies(params: IConvertParams): Observable<IConvertCurrency> {
     const httpParams = new HttpParams({
       fromObject: {
@@ -30,20 +33,24 @@ export class CurrencyService {
       }
     });
     return this.httpClient
-      .get<IConvertCurrency>(`${environment.serverUrl}latest`, {params: httpParams});
+      .get<IConvertCurrency>(`${this.baseUrl}latest`, {params: httpParams});
   }
 
-  fetchCurrencies(): Observable<{ [key: string]: string }> {
-    return this.httpClient.get<{ [key: string]: string }>(`${environment.serverUrl}currencies`);
+  /** Getting a list of currencies */
+  fetchListCurrencies(): Observable<{ [key: string]: string }> {
+    return this.httpClient
+      .get<{ [key: string]: string }>(`${this.baseUrl}currencies`);
   }
 
-  getCurrency(params: {
+  /** Getting the exchange rate for the selected period */
+  fetchCourseCurrency(params: {
     start: Date,
     end: Date,
   }): Observable<ICurrency> {
     const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
     const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
-    return this.httpClient.get<ICurrency>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
+    return this.httpClient
+      .get<ICurrency>(`${this.baseUrl}${formattedStartDate}..${formattedEndDate}`);
   }
 
 }

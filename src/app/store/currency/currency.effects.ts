@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { throwError } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { CurrencyService } from '../../services/currency.service';
 import {
   fetchConvertCurrenciesAction,
   fetchConvertSuccessAction,
@@ -10,6 +9,8 @@ import {
   fetchCurrenciesSuccessAction, fetchRatesAction, fetchRatesSuccessAction
 } from './currency.actions';
 import { IConvertParams } from '../../interfaces/i-convert-params';
+
+import { CurrencyService } from '../../services/currency.service';
 
 @Injectable()
 export class CurrencyEffects {
@@ -26,27 +27,36 @@ export class CurrencyEffects {
       return this.currencyService.fetchConvertCurrencies(params)
         .pipe(
           map((payload) => fetchConvertSuccessAction({payload})),
-          catchError(() => EMPTY)
+          catchError(error => {
+            console.log('Error: ', error.message);
+            return throwError(error);
+          }),
         );
     }))
   );
 
   fetchCurrency$ = createEffect(() => this.actions$.pipe(
     ofType(fetchCurrenciesAction),
-    mergeMap(() => this.currencyService.fetchCurrencies()
+    mergeMap(() => this.currencyService.fetchListCurrencies()
       .pipe(
         map(currencies => fetchCurrenciesSuccessAction({payload: currencies})),
-        catchError(() => EMPTY)
+        catchError(error => {
+          console.log('Error: ', error.message);
+          return throwError(error);
+        }),
       )))
   );
 
   fetchRates$ = createEffect(() => this.actions$.pipe(
     ofType(fetchRatesAction),
     mergeMap((data: { start: Date, end: Date }) => {
-      return this.currencyService.getCurrency(data)
+      return this.currencyService.fetchCourseCurrency(data)
         .pipe(
           map((payload) => fetchRatesSuccessAction({payload})),
-          catchError(() => EMPTY)
+          catchError(error => {
+            console.log('Error: ', error.message);
+            return throwError(error);
+          }),
         );
     }))
   );
