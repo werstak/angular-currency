@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -21,8 +20,6 @@ export class CurrencyService {
   ) {
   }
 
-  baseUrl = 'baseUrl';
-
   /** Getting the result of currency conversion */
   fetchConvertCurrencies(params: IConvertParams): Observable<IConvertCurrency> {
     const httpParams = new HttpParams({
@@ -33,13 +30,13 @@ export class CurrencyService {
       }
     });
     return this.httpClient
-      .get<IConvertCurrency>(`${this.baseUrl}latest`, {params: httpParams});
+      .get<IConvertCurrency>(`latest`, {params: httpParams});
   }
 
   /** Getting a list of currencies */
   fetchListCurrencies(): Observable<{ [key: string]: string }> {
     return this.httpClient
-      .get<{ [key: string]: string }>(`${this.baseUrl}currencies`);
+      .get<{ [key: string]: string }>(`currencies`);
   }
 
   /** Getting the exchange rate for the selected period */
@@ -50,7 +47,7 @@ export class CurrencyService {
     const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
     const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
     return this.httpClient
-      .get<ICurrency>(`${this.baseUrl}${formattedStartDate}..${formattedEndDate}`);
+      .get<ICurrency>(`${formattedStartDate}..${formattedEndDate}`);
   }
 
 }

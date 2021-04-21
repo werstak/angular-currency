@@ -15,11 +15,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { CurrencyEffects } from './store/currency/currency.effects';
-import { reducers, metaReducers } from './store';
+// import { reducers, metaReducers } from './store';
 import { environment } from '../environments/environment';
 
 import { CurrencyService } from './services/currency.service';
 import { BaseUrlInterceptor } from './core/api.interceptor';
+import { currencyReducer } from './store/currency/currency.reducer';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,10 @@ import { BaseUrlInterceptor } from './core/api.interceptor';
     FormsModule,
     MaterialModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot({ currency: currencyReducer }),
+/*    StoreModule.forRoot(reducers, {
       metaReducers
-    }),
+    }),*/
     EffectsModule.forRoot([CurrencyEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

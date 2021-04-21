@@ -8,8 +8,9 @@ export class BaseUrlInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const url = `https://api.frankfurter.app/${req.url}`;
     const httpsReq = req.clone({
-      url: req.url.replace('baseUrl', 'https://api.frankfurter.app/')
+      url
     });
     return next.handle(httpsReq);
   }
