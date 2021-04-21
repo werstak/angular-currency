@@ -1,4 +1,4 @@
-export interface ICurrency {
+export interface CurrencyInterface {
   amount: number;
   base: string;
   end_date: string;

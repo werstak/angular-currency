@@ -1,11 +1,8 @@
 import { State } from './currency.reducer';
-// import { State } from '../index';
-
-import { createSelector } from '@ngrx/store';
 import { CurrencyState } from './currency.reducer';
+import { createSelector } from '@ngrx/store';
 
 export const selectCurrencyState = (state: State) => state.currency;
-// export const selectCurrencyState = (state: State) => state.currency;
 
 export const selectConvert = createSelector(
   selectCurrencyState,

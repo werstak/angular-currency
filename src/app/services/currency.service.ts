@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ICurrency } from '../interfaces/i-currency';
-import { IConvertCurrency } from '../interfaces/i-convert-currency';
-import { IConvertParams } from '../interfaces/i-convert-params';
+import { CurrencyInterface } from '../interfaces/currency-Interface';
+import { ConvertCurrencyInterface } from '../interfaces/convert-currency.interface';
+import { ConvertParamsInterface } from '../interfaces/convert-params.interface';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class CurrencyService {
   }
 
   /** Getting the result of currency conversion */
-  fetchConvertCurrencies(params: IConvertParams): Observable<IConvertCurrency> {
+  fetchConvertCurrencies(params: ConvertParamsInterface): Observable<ConvertCurrencyInterface> {
     const httpParams = new HttpParams({
       fromObject: {
         amount: params.amount.toString(),
@@ -30,7 +31,7 @@ export class CurrencyService {
       }
     });
     return this.httpClient
-      .get<IConvertCurrency>(`latest`, {params: httpParams});
+      .get<ConvertCurrencyInterface>(`latest`, {params: httpParams});
   }
 
   /** Getting a list of currencies */
@@ -43,11 +44,11 @@ export class CurrencyService {
   fetchCourseCurrency(params: {
     start: Date,
     end: Date,
-  }): Observable<ICurrency> {
+  }): Observable<CurrencyInterface> {
     const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
     const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
     return this.httpClient
-      .get<ICurrency>(`${formattedStartDate}..${formattedEndDate}`);
+      .get<CurrencyInterface>(`${formattedStartDate}..${formattedEndDate}`);
   }
 
 }

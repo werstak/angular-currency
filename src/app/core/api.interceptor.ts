@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 @Injectable()
+
 export class BaseUrlInterceptor implements HttpInterceptor {
   constructor() {
   }

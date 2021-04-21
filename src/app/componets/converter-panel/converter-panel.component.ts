@@ -56,8 +56,6 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      // amount: ['', Validators.required],
-      // amount: ['', Validators.required, Validators.pattern('[0-9 ]{1,}')],
       amount: ['', [Validators.required, Validators.pattern('[0-9 ]{1,}')]],
       from: ['EUR'],
       to: ['USD']

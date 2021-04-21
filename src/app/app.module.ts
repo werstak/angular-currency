@@ -9,18 +9,18 @@ import { DisplayCurrenciesComponent } from './componets/display-currencies/displ
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
-import { CurrencyEffects } from './store/currency/currency.effects';
-// import { reducers, metaReducers } from './store';
-import { environment } from '../environments/environment';
-
-import { CurrencyService } from './services/currency.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseUrlInterceptor } from './core/api.interceptor';
+
+import { CurrencyEffects } from './store/currency/currency.effects';
 import { currencyReducer } from './store/currency/currency.reducer';
+
+import { environment } from '../environments/environment';
+import { CurrencyService } from './services/currency.service';
 
 @NgModule({
   declarations: [
@@ -36,12 +36,9 @@ import { currencyReducer } from './store/currency/currency.reducer';
     FormsModule,
     MaterialModule,
     HttpClientModule,
-    StoreModule.forRoot({ currency: currencyReducer }),
-/*    StoreModule.forRoot(reducers, {
-      metaReducers
-    }),*/
+    StoreModule.forRoot({currency: currencyReducer}),
     EffectsModule.forRoot([CurrencyEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
   ],
   providers: [
     CurrencyService,
