@@ -4,7 +4,7 @@ import {
   fetchCurrenciesSuccessAction,
   fetchRatesSuccessAction
 } from './currency.actions';
-import { CurrencyInterfaces } from '../../interfaces/currency-interfaces';
+
 
 export interface CurrencyState {
   converts: {

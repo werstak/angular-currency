@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { CurrencyInterfaces } from '../../interfaces/currency-interfaces';
-import { ConvertCurrencyInterfaces } from '../../interfaces/convert-currency-interfaces';
+import { ICurrency } from '../../interfaces/i-currency';
+import { IConvertCurrency } from '../../interfaces/i-convert-currency';
 
 
 export const fetchConvertCurrenciesAction = createAction(
@@ -10,7 +10,7 @@ export const fetchConvertCurrenciesAction = createAction(
 
 export const fetchConvertSuccessAction = createAction(
   '[Currency] Fetch Convert Success',
-  props<{ payload: ConvertCurrencyInterfaces }>()
+  props<{ payload: IConvertCurrency }>()
 );
 
 export const fetchCurrenciesAction = createAction(
@@ -29,5 +29,5 @@ export const fetchRatesAction = createAction(
 
 export const fetchRatesSuccessAction = createAction(
   '[Currency] Fetch Rates Success',
-  props<{ payload: CurrencyInterfaces }>()
+  props<{ payload: ICurrency }>()
 );

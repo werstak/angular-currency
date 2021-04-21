@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { CurrencyInterfaces } from '../interfaces/currency-interfaces';
 import * as moment from 'moment';
-import { ConvertCurrencyInterfaces } from '../interfaces/convert-currency-interfaces';
+
+import { ICurrency } from '../interfaces/i-currency';
+import { IConvertCurrency } from '../interfaces/i-convert-currency';
+import { IConvertParams } from '../interfaces/i-convert-params';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CurrencyService {
-
   constructor(
     private store: Store,
     private httpClient: HttpClient,
   ) {
   }
 
-  fetchConvertCurrencies(params: { amount: number, from: string, to: string }): Observable<ConvertCurrencyInterfaces> {
+  fetchConvertCurrencies(params: IConvertParams): Observable<IConvertCurrency> {
     const httpParams = new HttpParams({
       fromObject: {
         amount: params.amount.toString(),
@@ -29,9 +29,8 @@ export class CurrencyService {
         to: params.to,
       }
     });
-
     return this.httpClient
-      .get<ConvertCurrencyInterfaces>(`${environment.serverUrl}latest`, {params: httpParams});
+      .get<IConvertCurrency>(`${environment.serverUrl}latest`, {params: httpParams});
   }
 
   fetchCurrencies(): Observable<{ [key: string]: string }> {
@@ -41,10 +40,10 @@ export class CurrencyService {
   getCurrency(params: {
     start: Date,
     end: Date,
-  }): Observable<CurrencyInterfaces> {
+  }): Observable<ICurrency> {
     const formattedStartDate = moment(params.start).format('yyyy-MM-DD');
     const formattedEndDate = moment(params.end).format('yyyy-MM-DD');
-    return this.httpClient.get<CurrencyInterfaces>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
+    return this.httpClient.get<ICurrency>(`${environment.serverUrl}${formattedStartDate}..${formattedEndDate}`);
   }
 
 }

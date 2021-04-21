@@ -1,4 +1,4 @@
-export interface ConvertCurrencyInterfaces {
+export interface IConvertCurrency {
   amount: number;
   base: string;
   date: Date;

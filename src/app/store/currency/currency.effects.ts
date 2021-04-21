@@ -9,6 +9,7 @@ import {
   fetchCurrenciesAction,
   fetchCurrenciesSuccessAction, fetchRatesAction, fetchRatesSuccessAction
 } from './currency.actions';
+import { IConvertParams } from '../../interfaces/i-convert-params';
 
 @Injectable()
 export class CurrencyEffects {
@@ -21,7 +22,7 @@ export class CurrencyEffects {
 
   fetchConvertCurrencies$ = createEffect(() => this.actions$.pipe(
     ofType(fetchConvertCurrenciesAction),
-    mergeMap((params) => {
+    mergeMap((params: IConvertParams) => {
       return this.currencyService.fetchConvertCurrencies(params)
         .pipe(
           map((payload) => fetchConvertSuccessAction({payload})),
