@@ -11,7 +11,7 @@ import { CurrencyService } from '../../services/currency.service';
 
 
 @Component({
-  selector: 'app-control-panel',
+  selector: 'app-converter-panel',
   templateUrl: './converter-panel.component.html',
   styleUrls: ['./converter-panel.component.scss']
 })
